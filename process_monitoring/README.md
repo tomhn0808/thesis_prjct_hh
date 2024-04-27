@@ -11,4 +11,4 @@ Below you can find an example of the usage of those files to monitor the resourc
 ```
 
 ## delete_zip.sh
-This script is an additional bash script used to automate the unzip of malware from VirusShare and deleting the zip files. Since a lot of malware were used as part of this project, unzipping them all manually would have been not convenient
+This script is an additional bash script used to automate the unzip of malware from VirusShare and deleting the zip files. Since a lot of malware were used as part of this project, unzipping them all manually would have been not convenient. It also calculates the integrity of the file, since VirusShare provides all there malware in the format "SHA256HASH.zip", it calculates the hash values of the unzipped file and by extracting the name of the file, it can verify the integrity of the malware
