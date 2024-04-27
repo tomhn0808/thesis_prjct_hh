@@ -10,4 +10,5 @@ Below you can find an example of the usage of those files to monitor the resourc
 47 11 * * * python3 /home/tom/Downloads/Script_backup/cpu_monitoring_process.py 36001 230 >>/home/tom/Downloads/cpu.txt
 ```
 
-
+## delete_zip.sh
+This script is an additional bash script used to automate the unzip of malware from VirusShare and deleting the zip files. Since a lot of malware were used as part of this project, unzipping them all manually would have been not convenient
