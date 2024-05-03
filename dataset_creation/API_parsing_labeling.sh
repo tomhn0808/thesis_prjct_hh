@@ -7,10 +7,7 @@ json_data=$(curl --request GET \
 #Get json data from VirusShare API
 #json_data=$(curl --url "https://virusshare.com/apiv2/quick?apikey=your_virusshare_api_key&hash=$1")
 #Check if successful curl execution and data retrieve
-if [[ $? -ne 0 ]]; then
-  echo "Error: Failed to retrieve data from the VirusShare API."
-  exit 1
-fi
+
 
 
 #Parse the json and print some information if any of those information is provided by VirusTotal 
