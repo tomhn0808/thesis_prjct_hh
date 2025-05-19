@@ -16,9 +16,7 @@ This code is intended for Linux systems. You must have the following installed:
 
 Additionally, you need a **VirusTotal API v2 key**. Add your API key to the `apikey1` variable in `automate_bash_scripting.py`. Be mindful of API usage limits.
 
-> ⚠️ **Warning:** Ensure the input CSV file is **closed** (not open in another application) when running these scripts to prevent file-access errors.
->
-> **Note:** This code only processes malware samples from the VirusShare database, located in a specific folder on your system (e.g., `/home/user/Downloads/collected_data`). Samples must be unzipped and retain their original filenames. The scripts do **not** execute any malware, but always exercise caution — preferably run inside a virtual machine.
+> ⚠️ **Note:** This code only processes malware samples from the VirusShare database, located in a specific folder on your system (e.g., `/home/user/Downloads/collected_data`). Samples must be unzipped and retain their original filenames. The scripts do **not** execute any malware, but always exercise caution — preferably run inside a virtual machine.
 
 ## Usage
 
