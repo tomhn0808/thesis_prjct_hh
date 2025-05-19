@@ -1,32 +1,46 @@
-# Dataset creation & labeling 
-This is the folder containing all the codes used to label the dataset of malware samples collected from VirusShare database.
-This folder is composed of different python script and a bash script
-  - "verify.py" -> is a python script which will generate the hash value of all files in a folder, verify if any duplicates are noticed and report them.
-                   Afterwards, it will put all those hash values into "hashes2.txt" as a list
-  - "automate_bash_scripting.py" -> is a python script which will automate the reading from hashes2.txt and the starting of the bash script (described below) with correct parameter.
-  - "API_parsing_labeling.sh" -> is a bash script which get the virusTotal report (with "curl" command) in JSON format, parse this file to extract different information related to the malware analysed and identify the class of malware encountered. A malware is considered as part of a specific class if it has been detected by at least 80% out of all classes identified in VirusTotal report. AVClassV2 tool is used to automate the extraction of those information from the VirusTotal JSON report. This script will create different txt file in which MD5 hash value of labeled (considered as part of a specific class) malware are indicated.
-  - "cp_correct_file.py" -> is a python script used to copy, based on txt file containing MD5 hash value of labeled malware, VirusShare malware from a source directory to another.
+# Dataset Creation & Labeling
+
+This folder contains all the scripts used to label a dataset of malware samples collected from the VirusShare database. It includes several Python scripts and one Bash script:
+
+* **verify.py**: Generates the MD5 hash values of all files in a folder, identifies duplicates, reports them, and writes the list of hashes to `hashes2.txt`.
+* **automate\_bash\_scripting.py**: Reads `hashes2.txt` and runs the Bash script (`API_parsing_labeling.sh`) with the correct parameters.
+* **API\_parsing\_labeling.sh**: Uses `curl` to fetch a VirusTotal report in JSON format, then parses it to extract malware information and determine its class. A sample is assigned to a class if at least 80% of detections agree. The AVClassV2 tool automates this extraction. The script creates text files listing the MD5 hashes of labeled samples for each class.
+* **cp\_correct\_file.py**: Copies labeled malware samples, based on the MD5 hash lists, from one directory to another.
 
 ## Requirements
-This code is intended to be executed on Linux systems and the following must be installed on your system:
-  - Python version 3.10 or newer (including "time", "subprocess", "os", "shutil", "hashlib", "collections" libraries)
-  - "curl", "jq", "grep", "cut", "tr", "head", "echo", "sed", "awk", "bc" bash commands
 
-Additionally, you must have a VirusTotal APIv2 key. (Be careful with limit of usage of this API)
-This API key must be added manually to "automate_bash_scripting.py" as value of "apikey1" variable
+This code is intended for Linux systems. You must have the following installed:
 
-Please note that this code is only working with malware samples coming from VirusShare database and all located in a specific folder on your local system ("/home/user/Downloads/collected_data" in the provided code), unpacked from their zip protection, and without there name changed. These codes do not run malware under any circumstances, but remain careful when handling this type of file, which may have unexpected behavior. Preferably use a virtual machine.
+* **Python 3.10** or newer (with the standard libraries `time`, `subprocess`, `os`, `shutil`, `hashlib`, `collections`).
+* **Bash tools**: `curl`, `jq`, `grep`, `cut`, `tr`, `head`, `echo`, `sed`, `awk`, `bc`.
+
+Additionally, you need a **VirusTotal API v2 key**. Add your API key to the `apikey1` variable in `automate_bash_scripting.py`. Be mindful of API usage limits.
+
+> ⚠️ **Warning:** Ensure the input CSV file is **closed** (not open in another application) when running these scripts to prevent file-access errors.
+>
+> **Note:** This code only processes malware samples from the VirusShare database, located in a specific folder on your system (e.g., `/home/user/Downloads/collected_data`). Samples must be unzipped and retain their original filenames. The scripts do **not** execute any malware, but always exercise caution — preferably run inside a virtual machine.
 
 ## Usage
-These code might be run with additional privileges than "simple" user privilege depending on your access policy for the different command and the execution of script on your system. Do not forget to change variable (path + API key) as mentionned before.
-### Verify that there is no duplicates
+
+These scripts may require elevated privileges depending on your system’s security policy. Update the file paths and API key in the scripts before running.
+
+### 1. Verify there are no duplicates
+
 ```bash
-/bin/python3.10 "./verify.py"
+python3.10 verify.py
 ```
-### For parsing and labeling data from a specific path (path is manually modificable in verify.py)
+
+### 2. Parse and label data
+
 ```bash
 chmod u+x API_parsing_labeling.sh
-/bin/python3.10 "./automate_bash_scripting.py"
+python3.10 automate_bash_scripting.py
+```
+
+### 3. Copy labeled samples (optional)
+
+```bash
+python3.10 cp_correct_file.py
 ```
 
 
